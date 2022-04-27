@@ -5,7 +5,7 @@ import (
 	"log"
 )
 
-// Cryptoresponse is exported and models the data we receive
+//Cryptoresponse is exported and models the data we receive
 type NomicsResponse []struct {
 	Name               string `json:"name"`
 	CurrentPrice       string `json:"price"`
@@ -22,7 +22,7 @@ func (c NomicsResponse) TextOutput() string {
 	}
 
 	p := fmt.Sprintf(
-		"---------------------\nName: %s\nCurrent Price : $%s\nMarket Cap Rank: %s\nAll Time High: $%s\nCirculating Supply: %s\nNumber of Exchanges Traded: %s\n",
+		"\n---------------------\nName: %s\nCurrent Price : $%s\nMarket Cap Rank: %s\nAll Time High: $%s\nCirculating Supply: %s\nNumber of Exchanges Traded: %s\n",
 		c[0].Name, c[0].CurrentPrice, c[0].MarketCapRank, c[0].AllTimeHigh, c[0].CirculatingSupply, c[0].NumExchangesTraded)
 	return p
 }
