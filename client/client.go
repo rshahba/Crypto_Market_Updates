@@ -15,6 +15,7 @@ func APIFetch(currency string, crypto string) (string, error) {
 	fmt.Scanf("%s", &currency)
 	fmt.Print("Enter crypto: ")
 	fmt.Scanf("%s", &crypto)
+	
 	URL := "https://api.nomics.com/v1/currencies/ticker?key=4fe2103af29f0c4acbb7a2ef6a7b9015c0b70c9a&interval=1d&ids=" + crypto + "&convert=" + currency
 
 	switch {

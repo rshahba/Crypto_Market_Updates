@@ -1,9 +1,11 @@
 package client
 
 import (
-	"strings"
+
 	"testing"
+	"github.com/stretchr/testify/assert"
 )
+
 
 func TestAPIFetch(t *testing.T) {
 	var currency = "CAD"
@@ -13,8 +15,8 @@ func TestAPIFetch(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error in API Fetch %v", err)
 	}
-	if !strings.Contains(got, "Current Price") {
-		t.Errorf("Test did not pass %v", got)
-	}
+
+	assert.NotEqual(t, nil, got)
+
 
 }
