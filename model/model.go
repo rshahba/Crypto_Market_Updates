@@ -6,7 +6,7 @@ package model
 // )
 
 //Models the data we receive
-type NomicsResponse struct {
+type NomicsResponse []struct {
 	Name               string `json:"name"`
 	CurrentPrice       string `json:"price"`
 	MarketCapRank      string `json:"rank"`
