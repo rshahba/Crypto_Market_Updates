@@ -3,6 +3,7 @@ package client
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -10,12 +11,13 @@ import (
 	"Crypto_Market_Updates/model"
 )
 
-func APIFetch(currency string, crypto string) (string, error) {
+func FiatCrypto(currency string, crypto string) (string, error) {
+
 	fmt.Print("Enter currency: ")
 	fmt.Scanf("%s", &currency)
 	fmt.Print("Enter crypto: ")
 	fmt.Scanf("%s", &crypto)
-	
+
 	URL := "https://api.nomics.com/v1/currencies/ticker?key=4fe2103af29f0c4acbb7a2ef6a7b9015c0b70c9a&interval=1d&ids=" + crypto + "&convert=" + currency
 
 	switch {
@@ -30,23 +32,34 @@ func APIFetch(currency string, crypto string) (string, error) {
 	case len(currency) < 3 || len(currency) > 3:
 		log.Fatal("Currency code can have 3 characters only (ex. CAD).")
 	}
+	return URL, nil
+}
+
+func GetURL(url string) (model.NomicsResponse, error) {
+
 	//Get function
-	response, err := http.Get(URL)
+	response, err := http.Get(url)
 
 	//Error handling
 	if err != nil {
-		log.Fatal("Error! Please try again.")
+		log.Fatal("GET URL Error! Please try again.")
 	}
 	defer response.Body.Close()
+	body, err := ioutil.ReadAll(response.Body)
 
-	//Variable type model
-	var cResp model.NomicsResponse
-
-	//JSON decoder
-	if err := json.NewDecoder(response.Body).Decode(&cResp); err != nil {
-		log.Fatal("Error! Please try again.")
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	//API result in text output returned with nil as the error value
-	return cResp.TextOutput(), nil
+	//Variable type model
+	var cResp []model.NomicsResponse
+
+	//JSON decoder
+	err = json.Unmarshal(body, &cResp)
+	if err != nil {
+		log.Fatal("UNMARSHAL Error! Please try again.", err)
+	}
+
+	return cResp[0], nil
+
 }
