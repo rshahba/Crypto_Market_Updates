@@ -3,7 +3,6 @@ package client
 import (
 	"encoding/json"
 	"fmt"
-	//"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -45,14 +44,8 @@ func GetURL(url string) (model.NomicsResponse, error) {
 		log.Fatal("GET URL Error! Please try again.")
 	}
 	defer response.Body.Close()
-	//body, err := ioutil.ReadAll(response.Body)
 
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	//Variable type model
 	var cResp model.NomicsResponse
-	//fmt.Printf("**TYPE*** %#v\n", &cResp)
 
 	//JSON decoder
 	err = json.NewDecoder(response.Body).Decode(&cResp)

@@ -2,24 +2,12 @@ package runAPI
 
 import (
 	"Crypto_Market_Updates/client"
-	//"Crypto_Market_Updates/model"
 	"flag"
 	"fmt"
 	"log"
 
 )
 
-// func TextOutput(nPs model.NomicsResponse) string {
-	
-// 	if nPs.AllTimeHigh == "" {
-// 		log.Fatal("Error in currency or crypto codes. Please check for correct spelling.")
-// 	}
-
-// 	p := fmt.Sprintf(
-// 		"\n---------------------\nName: %s\nCurrent Price : $%s\nMarket Cap Rank: %s\nAll Time High: $%s\nCirculating Supply: %s\nNumber of Exchanges Traded: %s\n",
-// 		nPs.Name, nPs.CurrentPrice, nPs.MarketCapRank, nPs.AllTimeHigh, nPs.CirculatingSupply, nPs.NumExchangesTraded)
-// 	return p
-// }
 
 func RunApp() {
 
@@ -41,7 +29,5 @@ func RunApp() {
 		log.Println(err)
 	}
 
-	//fmt.Printf("**TYPE*** %#v\n", CryptoS)
 	fmt.Println(CryptoS)
-	//fmt.Println("***Formatted***", TextOutput(CryptoS))
 }
