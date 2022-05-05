@@ -25,6 +25,4 @@ func RunApp() {
 
 	APIFetchRes := &client.APIURL{APILink: urlK}
 	client.PrintOutline(APIFetchRes)
-	//fmt.Printf("%#v", CryptoS)
-	//fmt.Println("\n", CryptoS)
 }

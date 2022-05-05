@@ -69,12 +69,13 @@ func (a *APIURL) GetUrlStr() (string, error) {
 
 }
 
-func PrintOutline(r ResponseFormat) {
+func PrintOutline(r ResponseFormat) string {
 	result, err := r.GetUrlStr()
 	if err != nil {
 		log.Fatal("GetUrlstr Error! Please try again.", err)
 	}
-	fmt.Println(result)
+	fmt.Println("\n-------------\n", result)
+	return result
 }
 func (c NomicsResponse) TextOutput() string {
 	p := fmt.Sprintf(

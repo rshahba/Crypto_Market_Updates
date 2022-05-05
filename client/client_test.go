@@ -3,9 +3,12 @@ package client
 import (
 	"net/http"
 	"net/http/httptest"
+
 	"testing"
 
 	"Crypto_Market_Updates/mocks"
+
+	"github.com/stretchr/testify/assert"
 
 	"log"
 
@@ -50,6 +53,10 @@ func TestPrintOutline(t *testing.T) {
 
 	mock := mocks.NewMockResponseFormat(mockCtrl)
 
-	mock.EXPECT().GetUrlStr().Return("Correct", nil).Times(1)
-	PrintOutline(mock)
+	resultWant := "Correct!"
+	mock.EXPECT().GetUrlStr().Return(resultWant, nil).Times(1)
+
+	resultGot := PrintOutline(mock)
+
+	assert.Equal(t, resultWant, resultGot, "Correct should be printed!")
 }
