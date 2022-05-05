@@ -6,10 +6,11 @@ import (
 	"net/http/httptest"
 	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+	//"Crypto_Market_Updates/mocks"
 	
-	"Crypto_Market_Updates/model"
 	"log"
-	"fmt"
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
@@ -30,12 +31,11 @@ func TestHandler(t *testing.T) {
 	if want != got {
 		t.Fatalf("Expected a %d, instead got: %d", want, got)
 	}
-
-	fmt.Print(UrlTest)
 	
 	response, err := http.Get(UrlTest)
 
-	fmt.Print(response)
+	//fmt.Print(response)
+	//OK 200
 
 	//Error handling
 	if err != nil {
@@ -52,19 +52,17 @@ func TestAPIResponse(t *testing.T) {
 		w.Write([]byte(`
 		[{
 			"name": "Litecoin",
-			"price": "129.83668602",
-			"rank": "24",
-			"high": "471.89482175",
-			"circulating_supply": "70198121",
+			"price": "130.31892984",
+			"rank": "25",
+			"high": "471.89482189",
+			"circulating_supply": "70212558",
 			"num_exchanges": "356"
 		  }]`))
 	}))
 	defer s.Close()
-	
-	r := model.NomicsResponse{{Name:"Litecoin", CurrentPrice:"129.83668602", MarketCapRank:"24", AllTimeHigh:"471.89482175", CirculatingSupply:"70198121", NumExchangesTraded:"356"},}
+		r := "Name: Litecoin\nPrice: $ 130.31892984\nRank: 25\nHigh: $ 471.89482189\nCirculatingSupply: 70212558\nNumber of Traded Exchanges: 356\n"
 
-
-	resp, err := GetURL(s.URL)
+	resp, err := GetUrlStr(s.URL)
 
 	if !reflect.DeepEqual(resp, r) {
 		t.Errorf("FAILED: expected %v, got %v\n",resp, r)
@@ -74,3 +72,34 @@ func TestAPIResponse(t *testing.T) {
 	}
 
 }
+
+func TestGetURL(t *testing.T){
+	s := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(`
+		[{
+			"name": "Litecoin",
+			"price": "130.31892984",
+			"rank": "25",
+			"high": "471.89482189",
+			"circulating_supply": "70212558",
+			"num_exchanges": "356"
+		  }]`))
+	}))
+	defer s.Close()
+	r := "Name: Litecoin\nPrice: $ 130.31892984\nRank: 25\nHigh: $ 471.89482189\nCirculatingSupply: 70212558\nNumber of Traded Exchanges: 356\n"	
+	resp, err := GetUrlStr(s.URL)
+	if err != nil {
+		log.Fatal("GET URL Error! Please try again.")
+	}
+	assert.Equal(t, r, resp)
+}
+
+// func TestNoAPIResoponse(t *testing.T){
+// 	mockCtrl := gomock.NewController(t)
+// 	defer mockCtrl.Finish()
+
+// 	mockClient := mocks.NewMockresponseFormat(mockCtrl)
+
+// 	mockClient.EXPECT().responseFormat().Return(nil).Times(1)
+	
+// }

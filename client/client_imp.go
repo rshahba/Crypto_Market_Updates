@@ -6,9 +6,17 @@ import (
 	"log"
 	"net/http"
 	"os"
-
-	"Crypto_Market_Updates/model"
+	
 )
+
+type NomicsResponse []struct {
+	Name               string `json:"name"`
+	CurrentPrice       string `json:"price"`
+	MarketCapRank      string `json:"rank"`
+	AllTimeHigh        string `json:"high"`
+	CirculatingSupply  string `json:"circulating_supply"`
+	NumExchangesTraded string `json:"num_exchanges"`
+}
 
 func FiatCrypto(currency string, crypto string) (string, error) {
 
@@ -34,7 +42,7 @@ func FiatCrypto(currency string, crypto string) (string, error) {
 	return URL, nil
 }
 
-func GetURL(url string) (model.NomicsResponse, error) {
+func GetUrlStr(url string) (string, error) {
 
 	//Get function
 	response, err := http.Get(url)
@@ -45,7 +53,7 @@ func GetURL(url string) (model.NomicsResponse, error) {
 	}
 	defer response.Body.Close()
 
-	var cResp model.NomicsResponse
+	var cResp NomicsResponse
 
 	//JSON decoder
 	err = json.NewDecoder(response.Body).Decode(&cResp)
@@ -54,6 +62,13 @@ func GetURL(url string) (model.NomicsResponse, error) {
 		log.Fatal("UNMARSHAL Error! Please try again.", err)
 	}
 
-	return cResp, nil
+	return cResp.TextOutput(), nil
 
 }
+
+func (c NomicsResponse) TextOutput() string {
+	p := fmt.Sprintf(
+	  "Name: %s\nPrice: $ %s\nRank: %s\nHigh: $ %s\nCirculatingSupply: %s\nNumber of Traded Exchanges: %s\n",
+	  c[0].Name, c[0].CurrentPrice, c[0].MarketCapRank, c[0].AllTimeHigh, c[0].CirculatingSupply, c[0].NumExchangesTraded)
+	   return p
+	}

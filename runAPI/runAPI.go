@@ -21,13 +21,15 @@ func RunApp() {
 	flag.Parse()
 
 	urlK, err := client.FiatCrypto(*currencyCode, *cryptoCode)
+
 	if err != nil {
 		log.Println(err)
 	}
-	CryptoS, errr := client.GetURL(urlK)
+
+	CryptoS, errr := client.GetUrlStr(urlK)
 	if errr != nil {
 		log.Println(err)
 	}
-
-	fmt.Println(CryptoS)
+	//fmt.Printf("%#v", CryptoS)
+	fmt.Println("\n", CryptoS)
 }
