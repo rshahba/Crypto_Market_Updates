@@ -44,53 +44,7 @@ func TestHandler(t *testing.T) {
 
 }
 
-// func TestAPIResponse(t *testing.T) {
-
-// 	s := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-// 		w.Write([]byte(`
-// 		[{
-// 			"name": "Litecoin",
-// 			"price": "130.31892984",
-// 			"rank": "25",
-// 			"high": "471.89482189",
-// 			"circulating_supply": "70212558",
-// 			"num_exchanges": "356"
-// 		  }]`))
-// 	}))
-// 	defer s.Close()
-// 	r := "Name: Litecoin\nPrice: $ 130.31892984\nRank: 25\nHigh: $ 471.89482189\nCirculatingSupply: 70212558\nNumber of Traded Exchanges: 356\n"
-
-// 	resp, err := GetUrlStr(s.URL)
-
-// 	if !reflect.DeepEqual(resp, r) {
-// 		t.Errorf("FAILED: expected %v, got %v\n", resp, r)
-// 	}
-// 	if !errors.Is(err, nil) {
-// 		t.Errorf("Expected error FAILED: expected %v got %v\n", nil, err)
-// 	}
-
-// }
-
-// func TestGetURL(t *testing.T) {
-// 	s := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-// 		w.Write([]byte(`
-// 		[{
-// 			"name": "Litecoin",
-// 			"price": "130.31892984",
-// 			"rank": "25",
-// 			"high": "471.89482189",
-// 			"circulating_supply": "70212558",
-// 			"num_exchanges": "356"
-// 		  }]`))
-// 	}))
-// 	defer s.Close()
-// 	r := "Name: Litecoin\nPrice: $ 130.31892984\nRank: 25\nHigh: $ 471.89482189\nCirculatingSupply: 70212558\nNumber of Traded Exchanges: 356\n"
-// 	resp := &APIURL{APILink: s.URL}
-// 	finalResp := PrintOutline(resp)
-// 	assert.Equal(t, r, finalResp)
-// }
-
-func TestNoAPIResoponse(t *testing.T) {
+func TestPrintOutline(t *testing.T) {
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
 
