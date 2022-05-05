@@ -3,11 +3,8 @@ package runAPI
 import (
 	"Crypto_Market_Updates/client"
 	"flag"
-	"fmt"
 	"log"
-
 )
-
 
 func RunApp() {
 
@@ -26,10 +23,8 @@ func RunApp() {
 		log.Println(err)
 	}
 
-	CryptoS, errr := client.GetUrlStr(urlK)
-	if errr != nil {
-		log.Println(err)
-	}
+	APIFetchRes := &client.APIURL{APILink: urlK}
+	client.PrintOutline(APIFetchRes)
 	//fmt.Printf("%#v", CryptoS)
-	fmt.Println("\n", CryptoS)
+	//fmt.Println("\n", CryptoS)
 }

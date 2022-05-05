@@ -34,16 +34,16 @@ func (m *MockResponseFormat) EXPECT() *MockResponseFormatMockRecorder {
 }
 
 // GetUrlStr mocks base method.
-func (m *MockResponseFormat) GetUrlStr(url string) (string, error) {
+func (m *MockResponseFormat) GetUrlStr() (string, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetUrlStr", url)
+	ret := m.ctrl.Call(m, "GetUrlStr")
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetUrlStr indicates an expected call of GetUrlStr.
-func (mr *MockResponseFormatMockRecorder) GetUrlStr(url interface{}) *gomock.Call {
+func (mr *MockResponseFormatMockRecorder) GetUrlStr() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUrlStr", reflect.TypeOf((*MockResponseFormat)(nil).GetUrlStr), url)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUrlStr", reflect.TypeOf((*MockResponseFormat)(nil).GetUrlStr))
 }

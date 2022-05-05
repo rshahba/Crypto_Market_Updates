@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	
 )
 
 type NomicsResponse []struct {
@@ -42,8 +41,12 @@ func FiatCrypto(currency string, crypto string) (string, error) {
 	return URL, nil
 }
 
-func GetUrlStr(url string) (string, error) {
+type APIURL struct {
+	APILink string
+}
 
+func (a *APIURL) GetUrlStr() (string, error) {
+	url := a.APILink
 	//Get function
 	response, err := http.Get(url)
 
@@ -66,9 +69,16 @@ func GetUrlStr(url string) (string, error) {
 
 }
 
+func PrintOutline(r ResponseFormat) {
+	result, err := r.GetUrlStr()
+	if err != nil {
+		log.Fatal("GetUrlstr Error! Please try again.", err)
+	}
+	fmt.Println(result)
+}
 func (c NomicsResponse) TextOutput() string {
 	p := fmt.Sprintf(
-	  "Name: %s\nPrice: $ %s\nRank: %s\nHigh: $ %s\nCirculatingSupply: %s\nNumber of Traded Exchanges: %s\n",
-	  c[0].Name, c[0].CurrentPrice, c[0].MarketCapRank, c[0].AllTimeHigh, c[0].CirculatingSupply, c[0].NumExchangesTraded)
-	   return p
-	}
+		"Name: %s\nPrice: $ %s\nRank: %s\nHigh: $ %s\nCirculatingSupply: %s\nNumber of Traded Exchanges: %s\n",
+		c[0].Name, c[0].CurrentPrice, c[0].MarketCapRank, c[0].AllTimeHigh, c[0].CirculatingSupply, c[0].NumExchangesTraded)
+	return p
+}
